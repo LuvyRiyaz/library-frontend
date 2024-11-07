@@ -1,0 +1,33 @@
+
+.overdue-books-container {
+    padding: 20px;
+  
+    .overdue-books-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+  
+      h2 {
+        color: #333;
+        font-size: 24px;
+      }
+    }
+  
+    .MuiTableCell-root {
+      font-size: 14px;
+      &:first-child {
+        font-weight: bold;
+      }
+    }
+  
+    .MuiToolbar-root {
+      justify-content: flex-end;
+      padding: 8px 24px;
+      background-color: #f5f5f5;
+      .MuiIconButton-root {
+        color: #007bff;
+      }
+    }
+  }
+  

@@ -1,0 +1,21 @@
+.add-book-form {
+    padding: 20px;
+  
+    input {
+      margin: 5px;
+      padding: 10px;
+      font-size: 16px;
+    }
+  
+    button {
+      padding: 10px;
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .add-book-form {
+      margin-left: 0;
+    }
+  }
+  

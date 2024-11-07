@@ -1,0 +1,54 @@
+service: library-management-frontend
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  stage: dev
+
+# Define an S3 bucket for the frontend deployment
+resources:
+  Resources:
+    LibraryManagementFrontendBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: library-management-frontend-dev-us-east-1
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: error.html
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          IgnorePublicAcls: true
+          BlockPublicPolicy: true
+          RestrictPublicBuckets: true
+
+    # Set a policy for controlled access (e.g., authenticated users only)
+    LibraryManagementFrontendBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref LibraryManagementFrontendBucket
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Principal:
+                AWS: arn:aws:iam::<your-account-id>:user/<your-iam-user>
+              Action: "s3:GetObject"
+              Resource: "arn:aws:s3:::library-management-frontend-dev-us-east-1/*"
+
+custom:
+  s3Sync:
+    - bucketName: library-management-frontend-dev-us-east-1
+      localDir: build
+
+package:
+  exclude:
+    - node_modules/**
+    - .git/**
+    - .vscode/**
+  individually: false
+
+functions: {}
+
+plugins:
+  - serverless-s3-sync
